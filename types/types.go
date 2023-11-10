@@ -107,5 +107,5 @@ type Plugin interface {
 	Activate() PluginInfo
 	Start()
 	Destroy()
-	InvokeFunction(name string, args []interface{}) ([]interface{}, error)
+	InvokeFunction(name string, args ...interface{}) ([]interface{}, error)
 }

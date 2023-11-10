@@ -19,6 +19,6 @@ func (p *PluginProxy) Destroy() {
 
 }
 
-func (p *PluginProxy) InvokeFunction(name string, args []interface{}) ([]interface{}, error) {
+func (p *PluginProxy) InvokeFunction(name string, args ...interface{}) ([]interface{}, error) {
 	return util.InvokeFunction(p.Id, p.Name, name, args)
 }

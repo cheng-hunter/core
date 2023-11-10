@@ -27,16 +27,37 @@ func (core *PluginCore) Destroy() {
 
 }
 
-func (core *PluginCore) InvokeFunction(name string, args []interface{}) ([]interface{}, error) {
+func (core *PluginCore) InvokeFunction(name string, args ...interface{}) ([]interface{}, error) {
 	switch name {
 	case "startPlugin":
-		err := core.startPlugin(args[0].(string), args[1].(types.PluginInfo))
+		a0, ok := args[0].(string)
+		if !ok {
+			return nil, errors.New("参数转换失败")
+		}
+		a1, ok := args[1].(types.PluginInfo)
+		if !ok {
+			return nil, errors.New("参数转换失败")
+		}
+		err := core.startPlugin(a0, a1)
 		if err != nil {
 			return nil, err
 		}
+	case "testAdd":
+		a, ok := args[0].(string)
+		if !ok {
+			return nil, errors.New("参数转换失败")
+		}
+		rlt := core.testAdd(a)
+		return []interface{}{rlt}, nil
 	default:
+
 	}
 	return nil, nil
+}
+
+func (core *PluginCore) testAdd(test string) string {
+	rlt := test + "999999"
+	return rlt
 }
 
 func (core *PluginCore) startPlugin(pluginId string, info types.PluginInfo) error {

@@ -9,5 +9,11 @@ import (
 func main() {
 	actuator := actuator.NewPluginActuator("/home/hunter/plugin")
 	actuator.Start()
-	fmt.Println(manager.DefaultPluginManager.Get("root"))
+	rlt, err := manager.DefaultPluginManager.Get("root").InvokeFunction("testAdd", "sssssss")
+	if err != nil {
+		fmt.Println(err)
+	} else {
+		fmt.Println(rlt)
+	}
+
 }
